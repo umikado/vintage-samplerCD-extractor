@@ -24,6 +24,28 @@ left as mono  : 0
 failed        : 0
 ```
 
+## Download — macOS app (Apple Silicon)
+
+Prefer a GUI to the command line? A drag-and-drop macOS app is on the
+[**Releases**](https://github.com/umikado/vintage-samplerCD-extractor/releases/latest)
+page (`Vintage-SampleCD-Extractor-…-macOS-arm64.zip`). Drop in your `.iso`/`.img`
+files, choose mono or stereo, and it extracts — `akaiutil` is bundled and stereo
+merging is built in, so **no `ffmpeg` or other setup is required**.
+
+> **Apple Silicon only** (arm64), macOS 13+.
+>
+> The app is **not notarized** (this is a free project without a paid Apple
+> Developer ID), so on first launch macOS Gatekeeper will warn that it "cannot be
+> checked for malicious software." To open it, either:
+> - **right-click the app → Open → Open**, or
+> - clear the quarantine flag after moving it to `/Applications`:
+>   ```bash
+>   xattr -dr com.apple.quarantine "/Applications/Vintage SampleCD Extractor.app"
+>   ```
+>
+> The app's full source is in [`macos-app/`](macos-app) — build it yourself
+> (`macos-app/Scripts/package-app.sh`) to avoid the Gatekeeper prompt entirely.
+
 ## Why this exists
 
 On an Akai sampler disk a **stereo sample is physically stored as two separate

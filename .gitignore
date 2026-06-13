@@ -6,5 +6,9 @@ third_party/akaiutil/*.o
 *.tar
 .vse_stereo_tmp_*.wav
 
+# macOS app build output (rebuild via macos-app/Scripts/package-app.sh)
+macos-app/.build/
+macos-app/dist/
+
 # macOS
 .DS_Store
