@@ -1,5 +1,9 @@
 # vintage-sampler-extractor (`vse`)
 
+[![shellcheck](https://github.com/umikado/vintage-sampler-extractor/actions/workflows/shellcheck.yml/badge.svg)](https://github.com/umikado/vintage-sampler-extractor/actions/workflows/shellcheck.yml)
+[![license: GPL-2.0](https://img.shields.io/badge/license-GPL--2.0-blue.svg)](LICENSE)
+![platform: macOS | Linux](https://img.shields.io/badge/platform-macOS%20%7C%20Linux-lightgrey.svg)
+
 Extract audio from **Akai S900 / S1000 / S3000 sampler CD-ROM images** to WAV on
 modern macOS and Linux — and automatically rejoin the Akai format's split
 **`-L` / `-R` mono files into proper stereo**.
@@ -79,6 +83,44 @@ vse stereo ./gota-yashiki              # add --dry-run to preview, --keep to ret
 
 # Do it all in one shot:
 vse all "Distorted Reality 2 [Disc 1].iso" ./dr2-disc1
+```
+
+## Example output
+
+Inspect a disc without extracting (read-only):
+
+```text
+$ vse list "AMG Gota Yashiki AKAI.iso"
+disk  type parts  blksize tot/blks  tot/MB  free/blks free/MB free/%
+   0    HD     5   0x2000   0x804b   256.6     0x1de6    59.8   23.3
+part  type startblk size/blks  size/MB  free/blks free/MB free/%
+   A    HD   0x0000    0x1e00     60.0     0x0334     6.4   10.7
+   B    HD   0x1e00    0x1e00     60.0     0x0177     2.9    4.9
+   ...
+```
+
+Extract everything and rejoin stereo in one shot:
+
+```text
+$ vse all "Distorted Reality 2 [Disc 1].iso" ./dr2-disc1
+>> reading '...' (read-only) and converting samples to WAV ...
+>> unpacking into: .../dr2-disc1
+>> done: 904 WAV files under .../dr2-disc1
+>> rejoining -L/-R stereo pairs ...
+------------------------------------------------------------
+stereo merged : 440
+left as mono  : 0   (no -L/-R partner)
+failed        : 0
+```
+
+The disc's original partition / volume / bank layout is preserved, with the
+`-L`/`-R` pairs rejoined into single stereo files:
+
+```text
+dr2-disc1/
+├── A/01 50-69 BPM/ ...
+├── B/04 140-159/DRMZ N OH.wav      # stereo  (was "DRMZ N OH -L/-R")
+└── I/03 FORCE HIT/BETRAYAL.wav     # stereo
 ```
 
 ## Safety
